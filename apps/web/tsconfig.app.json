@@ -1,0 +1,44 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "../../packages/data-model/src/**/*"
+  ],
+  "exclude": [
+    "src/**/__tests__/*"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "moduleSuffixes": [
+      ".web",
+      ""
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "vue3-google-map": [
+        "./node_modules/vue3-google-map/dist/types/index.d.ts"
+      ],
+      "@client/data-model/*": [
+        "../../packages/data-model/src/*"
+      ],
+      "@client/data-model/models/*": [
+        "../../packages/data-model/src/models/*"
+      ]
+    },
+    "module": "esnext",
+    "target": "es2017"
+  },
+  "vueCompilerOptions": {
+    "strictTemplates": true,
+    "checkUnknownProps": false,
+    "checkUnknownEvents": false,
+    "checkUnknownDirectives": false,
+    "checkUnknownComponents": false,
+    "checkUnknownSlots": false,
+    "checkUnknownAttributes": false
+  }
+}
