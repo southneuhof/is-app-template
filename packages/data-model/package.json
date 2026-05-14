@@ -7,7 +7,7 @@
     "./models/*": "./src/models/*"
   },
   "dependencies": {
-    "@southneuhof/is-data-model": "0.0.1",
+    "@southneuhof/is-data-model": "0.0.2",
     "zod": "^3.25.0"
   }
 }

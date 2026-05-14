@@ -42,11 +42,11 @@ importers:
         specifier: 0.0.1
         version: 0.0.1
       '@southneuhof/is-data-model':
-        specifier: 0.0.1
-        version: 0.0.1
+        specifier: 0.0.2
+        version: 0.0.2
       '@southneuhof/is-vue-framework':
-        specifier: 0.0.1
-        version: 0.0.1(@southneuhof/is-data-model@0.0.1)(reka-ui@2.9.7(vue@3.5.34(typescript@5.9.3)))(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.34(typescript@5.9.3)))(vue@3.5.34(typescript@5.9.3))
+        specifier: 0.0.2
+        version: 0.0.2(@southneuhof/is-data-model@0.0.2)(reka-ui@2.9.7(vue@3.5.34(typescript@5.9.3)))(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.34(typescript@5.9.3)))(vue@3.5.34(typescript@5.9.3))
       '@tanstack/vue-form':
         specifier: 1.29.1
         version: 1.29.1(vue@3.5.34(typescript@5.9.3))
@@ -268,8 +268,8 @@ importers:
   packages/data-model:
     dependencies:
       '@southneuhof/is-data-model':
-        specifier: 0.0.1
-        version: 0.0.1
+        specifier: 0.0.2
+        version: 0.0.2
       zod:
         specifier: ^3.25.0
         version: 3.25.76
@@ -825,13 +825,13 @@ packages:
   '@southneuhof/apostle@0.0.1':
     resolution: {integrity: sha512-jnjl111XltnkhtCiQ16Xhk9wiFdfHMqv74xFVYM1YpK8fN68Z7nhbKYRWyMTkIXXa/CvXFJdAxkLFQH+LJj4DQ==, tarball: https://npm.pkg.github.com/download/@southneuhof/apostle/0.0.1/c4acb18cb065e0106e38d2d9d6e846a9c7c4708e}
 
-  '@southneuhof/is-data-model@0.0.1':
-    resolution: {integrity: sha512-5OCAUd8jZnfk90GhDnt0Fm7HsWLziYkZkzUO7HN6jFC5nmOzDxE93kCKsozLXVdF9lwAsGyoPPLKwn5ZjCG83Q==, tarball: https://npm.pkg.github.com/download/@southneuhof/is-data-model/0.0.1/160847622ddafe57dc18ad7e589908fe6145de72}
+  '@southneuhof/is-data-model@0.0.2':
+    resolution: {integrity: sha512-WZ9xSxLgq0amNN/KLK1lo30pqr5JyOIOXq1bEpnheohgYxaA+3cqdzM0wYA82K3OMRRVzY8HkFNaTdySlM443w==, tarball: https://npm.pkg.github.com/download/@southneuhof/is-data-model/0.0.2/8e8aba79d3a7f433d558c06dbfbbb75e0107e858}
 
-  '@southneuhof/is-vue-framework@0.0.1':
-    resolution: {integrity: sha512-uka9Qc8TBulNmvfE1UMqevG2KWsEGk2IweKG3kqYBMZII2Kru/fWvJVGqXgniKEuZLDB/obmBhVhk8kVr9+jVQ==, tarball: https://npm.pkg.github.com/download/@southneuhof/is-vue-framework/0.0.1/e77dc92e78797565f4e493f02850dc54c45c38a3}
+  '@southneuhof/is-vue-framework@0.0.2':
+    resolution: {integrity: sha512-KdubTslV9AmSLC/vpPVJqvIqtMVgkblLItyCAi+3mhyzqYcMbtMmV0t5f0lK2zB6P5DsHzG0mwrjvo0fKLSlWQ==, tarball: https://npm.pkg.github.com/download/@southneuhof/is-vue-framework/0.0.2/cb32c6adf949d5de608c79ff7a8b7cee301ac179}
     peerDependencies:
-      '@southneuhof/is-data-model': ^0.0.1
+      '@southneuhof/is-data-model': ^0.0.2
       vue: ^3.5.12
       vue-router: ^4.2.2
 
@@ -3752,15 +3752,15 @@ snapshots:
     dependencies:
       qs: 6.15.1
 
-  '@southneuhof/is-data-model@0.0.1':
+  '@southneuhof/is-data-model@0.0.2':
     dependencies:
       zod: 3.25.76
 
-  '@southneuhof/is-vue-framework@0.0.1(@southneuhof/is-data-model@0.0.1)(reka-ui@2.9.7(vue@3.5.34(typescript@5.9.3)))(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.34(typescript@5.9.3)))(vue@3.5.34(typescript@5.9.3))':
+  '@southneuhof/is-vue-framework@0.0.2(@southneuhof/is-data-model@0.0.2)(reka-ui@2.9.7(vue@3.5.34(typescript@5.9.3)))(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.34(typescript@5.9.3)))(vue@3.5.34(typescript@5.9.3))':
     dependencies:
       '@headlessui/vue': 1.7.23(vue@3.5.34(typescript@5.9.3))
       '@southneuhof/apostle': 0.0.1
-      '@southneuhof/is-data-model': 0.0.1
+      '@southneuhof/is-data-model': 0.0.2
       '@tinymce/tinymce-vue': 6.3.0(tinymce@7.9.2)(vue@3.5.34(typescript@5.9.3))
       '@vuepic/vue-datepicker': 11.0.3(vue@3.5.34(typescript@5.9.3))
       '@vueuse/core': 12.8.2(typescript@5.9.3)
