@@ -5,6 +5,8 @@ module.exports = {
   content: [
     './index.html',
     './src/**/*.{vue,js,ts,tsx}',
+    './node_modules/@southneuhof/is-vue-framework/dist/**/*.{vue,js,ts,tsx}',
+    './node_modules/@southneuhof/is-vue-framework/src/**/*.{vue,js,ts,tsx}',
     '../../node_modules/@southneuhof/is-vue-framework/dist/**/*.{vue,js,ts,tsx}',
     '../../node_modules/@southneuhof/is-vue-framework/src/**/*.{vue,js,ts,tsx}',
   ],
