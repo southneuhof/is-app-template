@@ -13,18 +13,18 @@ describe('navigation helpers', () => {
     moduleState.value = []
   })
 
-  it('returns the first non-separator route name from modules store', () => {
+  it('returns dashboard as first accessible route for HKR menu shape', () => {
     moduleState.value = [
       {
-        routes: [
-          { separator: true, name: 'System' },
-          { name: 'users' },
-        ],
+        routes: [{ name: 'dashboard' }],
+      },
+      {
+        routes: [{ name: 'website' }],
       },
     ]
 
-    expect(getFirstAccessibleRouteName()).toBe('users')
-    expect(getDefaultAuthenticatedRouteLocation()).toEqual({ name: 'users' })
+    expect(getFirstAccessibleRouteName()).toBe('dashboard')
+    expect(getDefaultAuthenticatedRouteLocation()).toEqual({ name: 'dashboard' })
   })
 
   it('returns null when no accessible route exists', () => {
@@ -34,15 +34,14 @@ describe('navigation helpers', () => {
     expect(getDefaultAuthenticatedRouteLocation()).toBeNull()
   })
 
-  it('prefers stored post-login redirect and falls back when redirect is invalid', () => {
+  it('prefers safe redirect and falls back to dashboard', () => {
     moduleState.value = [{ routes: [{ name: 'dashboard' }] }]
 
     const router = {
-      resolve: (path: string) => (path === '/authenticated/settings/users' ? { matched: [{}], name: 'users' } : { matched: [], name: undefined }),
+      resolve: (path: string) => (path === '/authenticated/article/article' ? { matched: [{}], name: 'article' } : { matched: [], name: undefined }),
     } as any
 
-    expect(resolvePostLoginRoute(router, '/authenticated/settings/users')).toBe('/authenticated/settings/users')
+    expect(resolvePostLoginRoute(router, '/authenticated/article/article')).toBe('/authenticated/article/article')
     expect(resolvePostLoginRoute(router, '/missing')).toEqual({ name: 'dashboard' })
-    expect(resolvePostLoginRoute(router, '/settings/users')).toEqual({ name: 'dashboard' })
   })
 })

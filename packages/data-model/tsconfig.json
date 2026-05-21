@@ -4,9 +4,18 @@
     "composite": true,
     "moduleSuffixes": [
       ""
-    ]
+    ],
+    "paths": {
+      "@southneuhof/is-data-model": [
+        "../is-data-model/src/index.ts"
+      ],
+      "@southneuhof/is-data-model/*": [
+        "../is-data-model/src/*"
+      ]
+    }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "../is-data-model/src/**/*"
   ]
 }

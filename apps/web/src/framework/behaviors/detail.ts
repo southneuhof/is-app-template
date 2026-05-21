@@ -1,7 +1,7 @@
 import services from '@/utils/services'
 
-export async function getData(getAPI: string, searchParameters?: Record<string, any>, getDataID?: string | number) {
-  const { data } = await services.detail(getAPI, getDataID, searchParameters)
+export async function getData(getAPI: string, searchParameters?: Record<string, any>, dataID?: string | number) {
+  const { data } = await services.detail(getAPI, dataID, searchParameters)
   return data
 }
 

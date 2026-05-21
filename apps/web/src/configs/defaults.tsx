@@ -28,6 +28,52 @@ export const defaultGlobalConfig: {
         validation: z.string().email('Format email tidak valid!'),
       },
     },
+    media: { type: 'file-manager' },
+    subtitle: {type: 'text'},
+    url: {type: 'text'},
+    url_text: {
+      type: 'text',
+      dependency: {
+        fields: ['url'],
+        visibility: {
+          validator: ({url}: any) => !!url,
+          default: false
+        }
+      },
+    },
+    visible: {
+      type: 'radio',
+      props: {
+        required: true,
+        defaultValue: true,
+        data: [
+          {name: 'Ditampilkan', id: true},
+          {name: 'Disembunyikan', id: false}
+        ]
+      }
+    },
+    attachment: { type: 'file-manager' },
+    amount: {type: 'number'},
+    url_type: {
+      type: 'radio',
+      props: {
+        data: [
+          {id: 'internal', name: 'Internal'},
+          {id: 'external', name: 'External'},
+        ],
+      }
+    },
+    label: {type: 'text'},
+    media_type: {
+      type: 'radio',
+      props: {
+        data: [
+          {name: 'Gambar', id: 'image'},
+          {name: 'Video', id: 'video'},
+          // {name: 'Embed', id: 'embed'},
+        ]
+      }
+    },
     telephone: { type: 'text', props: { required: true } },
     description: { type: 'textarea' },
     active: {
@@ -59,6 +105,7 @@ export const defaultGlobalConfig: {
   },
   fieldsAlias: {
     name: 'Nama',
+    visible: 'Visibilitas',
     code: 'Kode',
     file: 'File',
     description: 'Keterangan',

@@ -9,7 +9,7 @@ import { useRouter } from 'vue-router'
 import Button from '@southneuhof/is-vue-framework/components/base/Button.vue'
 import Icon from '@southneuhof/is-vue-framework/components/base/Icon.vue'
 
-const sidebarexpand = ref<HTMLElement>()
+const sidebarexpand = ref<HTMLElement | null>(null)
 const sidebarState = ref<{ index: number; open: boolean }>({ index: 0, open: false })
 const sidebarView = ref<'modules' | 'routes' | 'profile'>('modules')
 const router = useRouter()
@@ -43,7 +43,7 @@ const selectRoute = (routeName: string) => {
   closeSidebar()
 }
 
-onClickOutside(sidebarexpand as any, closeSidebar, { ignore: ['#sidebar', '#dialog', 'input', '#file', 'input#file'] })
+onClickOutside(sidebarexpand, closeSidebar, { ignore: ['#sidebar', '#dialog', 'input', '#file', 'input#file'] })
 </script>
 
 <template>
@@ -57,7 +57,7 @@ onClickOutside(sidebarexpand as any, closeSidebar, { ignore: ['#sidebar', '#dial
     class="duration-[350ms] fixed top-0 z-50 flex max-h-screen min-h-screen min-w-[288px] max-w-[288px] flex-col gap-8 rounded-r-2xl border-x border-surface-variant/[25%] bg-surface-container p-8 text-on-surface transition-all"
     :class="sidebarState.open ? 'left-0' : '-left-[288px]'"
   >
-    <Button kind="icon" variant="standard" size="square" class="ml-2 w-fit" @click="closeSidebar"><Icon name="close" /></Button>
+    <Button kind="icon" variant="standard" class="ml-2 w-fit" @click="closeSidebar"><Icon name="close" /></Button>
     <TransitionGroup mode="out-in" tag="div" name="viewmode" class="min-w-full overflow-scroll">
       <div v-if="sidebarView === 'modules'" class="flex flex-col gap-2">
         <NavItem :key="item.name" v-for="(item, index) in modules().value" :route="item" :active="item.name === String($route.meta.moduleName)" @click="selectModule(item, index)" />

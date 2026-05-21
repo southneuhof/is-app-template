@@ -4,7 +4,10 @@ import { permissions } from './permissions'
 
 const value: Array<Module> = []
 
-function compactSeparators(routes: any[]): any[] {
+type RouteEntry = { separator?: boolean; name?: string; permission?: string }
+type RouteSection = { section: string; routes: RouteEntry[] }
+
+function compactSeparators(routes: RouteEntry[]): RouteEntry[] {
   const normalized = [...routes]
 
   for (let i = 0; i < normalized.length - 1; i++) {
@@ -32,7 +35,7 @@ export const modules = defineStore('modules', () => {
         return
       }
 
-      const routes = (item.routes as any).filter((route: any) => {
+      const routes = item.routes.filter((route: RouteEntry) => {
         if (route.separator) return true
         if (route.name) {
           return permissions().has(`view-${route.permission || route.name}`)
@@ -42,7 +45,7 @@ export const modules = defineStore('modules', () => {
 
       const cleanedRoutes = compactSeparators(routes)
       if (cleanedRoutes.length !== 0) {
-        value.push({ ...item, routes: cleanedRoutes })
+        value.push({ ...item, routes: cleanedRoutes as Module['routes'] })
       }
     })
 
@@ -62,13 +65,13 @@ export const modules = defineStore('modules', () => {
   return { value, build, clear, rebuild }
 })
 
-export function transformData(data: any[]) {
+export function transformData(data: Module[]) {
   return data
     .map((item) => {
-      const newRoutes: any[] = []
-      let currentSection: any = null
+      const newRoutes: RouteSection[] = []
+      let currentSection: RouteSection | null = null
 
-      item.routes.forEach((route: any) => {
+      item.routes.forEach((route: RouteEntry) => {
         if (permissions().has(`view-${route.permission || route.name}`) || route.separator) {
           if (route.separator) {
             if (currentSection && currentSection.routes.length > 0) {

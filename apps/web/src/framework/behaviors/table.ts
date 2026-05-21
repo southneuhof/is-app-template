@@ -1,7 +1,8 @@
 import services from '@/utils/services'
 
 export async function getData(getAPI: string, searchParameters?: Record<string, any>) {
-  return (await services.list(getAPI, searchParameters)) as { data: Record<string, any>[]; totalPage: number; total: number }
+  const {data, meta: {totalPages, totalRecords}} = await services.list(getAPI, searchParameters)
+  return { data, totalPage: totalPages, total: totalRecords }
 }
 
 export function onDataLoaded() {

@@ -4,7 +4,7 @@ const tokenState = { token: '' }
 const saveRedirectSpy = vi.fn()
 const getDefaultRouteSpy = vi.fn(() => ({ name: 'dashboard' }))
 
-vi.mock('@southneuhof/is-vue-framework/utils/storage', () => ({
+vi.mock('@southneuhof/utilities/storage', () => ({
   storage: {
     cookie: {
       get: () => tokenState.token,
@@ -32,22 +32,14 @@ describe('createAuthGuard', () => {
     getDefaultRouteSpy.mockReturnValue({ name: 'dashboard' })
   })
 
-  it('allows public login route without token', () => {
+  it('redirects root to login when unauthenticated', () => {
     const guard = createAuthGuard()
-    const result = guard({ name: 'login', fullPath: '/unauthenticated/auth/login', path: '/unauthenticated/auth/login', matched: [{}] } as any, {} as any, next)
+    const result = guard({ name: undefined, fullPath: '/', path: '/', matched: [] } as any, {} as any, next)
 
-    expect(result).toBe(true)
-  })
-
-  it('redirects protected route without token and saves redirect', () => {
-    const guard = createAuthGuard()
-    const result = guard({ name: 'users', fullPath: '/authenticated/settings/users', path: '/authenticated/settings/users', matched: [{}] } as any, {} as any, next)
-
-    expect(saveRedirectSpy).toHaveBeenCalledWith('/authenticated/settings/users')
     expect(result).toEqual({ name: 'login' })
   })
 
-  it('redirects root route with token to first accessible route', () => {
+  it('redirects root to first menu route when authenticated', () => {
     tokenState.token = 'abc'
     const guard = createAuthGuard()
     const result = guard({ name: undefined, fullPath: '/', path: '/', matched: [] } as any, {} as any, next)
@@ -56,18 +48,35 @@ describe('createAuthGuard', () => {
     expect(result).toEqual({ name: 'dashboard' })
   })
 
-  it('redirects unknown route without token to login', () => {
+  it('redirects protected route to login when unauthenticated', () => {
     const guard = createAuthGuard()
-    const result = guard({ name: 'not-found', fullPath: '/missing', path: '/missing', matched: [{}] } as any, {} as any, next)
+    const result = guard(
+      { name: 'website', fullPath: '/authenticated/website/website', path: '/authenticated/website/website', matched: [{}] } as any,
+      {} as any,
+      next,
+    )
 
+    expect(saveRedirectSpy).toHaveBeenCalledWith('/authenticated/website/website')
     expect(result).toEqual({ name: 'login' })
   })
 
-  it('allows unknown route with token without signing out', () => {
+  it('redirects login to first menu route when already authenticated', () => {
     tokenState.token = 'abc'
     const guard = createAuthGuard()
-    const result = guard({ name: 'not-found', fullPath: '/missing', path: '/missing', matched: [{}] } as any, {} as any, next)
+    const result = guard(
+      { name: 'login', fullPath: '/unauthenticated/auth/login', path: '/unauthenticated/auth/login', matched: [{}] } as any,
+      {} as any,
+      next,
+    )
 
-    expect(result).toBe(true)
+    expect(result).toEqual({ name: 'dashboard' })
+  })
+
+  it('falls through to not-found for unmatched route when authenticated', () => {
+    tokenState.token = 'abc'
+    const guard = createAuthGuard()
+    const result = guard({ name: undefined, fullPath: '/missing', path: '/missing', matched: [] } as any, {} as any, next)
+
+    expect(result).toEqual({ name: 'not-found' })
   })
 })

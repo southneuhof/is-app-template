@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import services from '@/utils/services'
 import { useColorPreference } from '@/stores/colorpreference'
-import { storage } from '@southneuhof/is-vue-framework/utils/storage'
+import { storage } from '@southneuhof/utilities/storage'
 import Button from '@southneuhof/is-vue-framework/components/base/Button.vue'
 import Icon from '@southneuhof/is-vue-framework/components/base/Icon.vue'
 
@@ -22,7 +22,7 @@ const profileData = storage.localStorage.get('profile')
       <div class="flex flex-col gap-4">
         <div class="flex w-full flex-row items-center justify-between">
           <div>Mode Tampilan</div>
-          <Button kind="icon" variant="text" size="square" @click="useColorPreference().toggle()">
+          <Button kind="icon" variant="text" @click="useColorPreference().toggle()">
             <template #icon>
               <Icon :name="useColorPreference().value == 'dark' ? 'sun' : 'moon'" />
             </template>

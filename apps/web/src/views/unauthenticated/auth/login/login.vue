@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import services from '@/utils/services'
-import { storage } from '@southneuhof/is-vue-framework/utils/storage'
+import { storage } from '@southneuhof/utilities/storage'
 import { modules } from '@/stores/modules'
 import { globalLoading } from '@/stores/loading'
 import { permissions } from '@/stores/permissions'
@@ -21,12 +21,12 @@ const BYPASS_ALL_PERMISSIONS = import.meta.env.VITE_APP_BYPASS_ALL_PERMISSIONS =
 const loginMessage = ref<{ message: string; type: 'error' | 'warning' | 'info' | 'success' | undefined }>({ message: '', type: undefined })
 const router = useRouter()
 const loading = ref(false)
-const formData = ref({username: '', password: ''})
+const formData = ref({email: '', password: ''})
 
 function login() {
   loading.value = true
   services
-  .post('login', formData.value)
+  .post('auth/sign-in/email', formData.value)
   .then(({user, token, tasks}) => {
     storage.cookie.set('token', token)
     storage.localStorage.set('profile', user)
@@ -66,8 +66,8 @@ onMounted(() => {
     <form class="flex flex-col items-center gap-4" @submit.prevent="() => login()">
       <TextInput
         class="w-full"
-        :model-value="formData.username"
-        @update:model-value="(value) => (formData.username = String(value))"
+        :model-value="formData.email"
+        @update:model-value="(value) => (formData.email = String(value))"
         label="Email"
         enableHelperMessage
         required

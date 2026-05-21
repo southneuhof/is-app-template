@@ -7,11 +7,11 @@ import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import Icon from '@southneuhof/is-vue-framework/components/base/Icon.vue'
 
-const sidebarexpand = ref<HTMLElement>()
+const sidebarexpand = ref<HTMLElement | null>(null)
 const sidebarState = ref<{index?: number, open: boolean}>({index: undefined, open: false})
 
 onClickOutside(
-  (sidebarexpand as any),
+  sidebarexpand,
   (element) => {
     if (['file'].includes((element.target as HTMLElement)?.id)) return
     sidebarState.value.open = false
@@ -34,12 +34,14 @@ onClickOutside(
             sidebarState.index = index
             if (item.routes.length === 1) {
               sidebarState.open = false
-              return $router.push({name: (item.routes[0] as any).name})
+              const firstRoute = item.routes[0] as { name?: string }
+              if ('name' in firstRoute) return $router.push({ name: firstRoute.name })
+              return
             }
             sidebarState.open = true
           }"
         >
-          <Icon size="3xl" :fill="item.name === String($route.meta.moduleName)" :name="(item.icon as any)"></Icon>
+          <Icon size="3xl" :fill="item.name === String($route.meta.moduleName)" :name="item.icon as never"></Icon>
         </RailItem>
       </div>
       <RailItem
